@@ -40,7 +40,8 @@ router.get('/api/items',function(req, res, next){
           location: item.address.city_name,
           price: {
             currency: item.currency_id,
-            amount: item.price
+            amount: item.price,
+            decimals: 00
           }
         }
         
@@ -64,9 +65,15 @@ router.get('/api/items/:id', function(req, res, nex){
   const apiEndPoint1 = 'https://api.mercadolibre.com/items/' + mlaId
   const apiEndPoint2 = 'https://api.mercadolibre.com/items/'+ mlaId +'/description'
 
+
+  var productDetailJson = {
+    categorie: [],
+  }
+
   axios.get(apiEndPoint1)
-    .then(results =>{
-      console.log('se realizo el llamado a la apiEndPoint1')
+    .then(result =>{
+      //el for para traer el detalle del producto y pushearlo a la var productDetailJson
+
     })
     .catch(error =>{
       console.log('el llamado a apiEndPoint1 NO se realizo')
@@ -75,6 +82,7 @@ router.get('/api/items/:id', function(req, res, nex){
 
   axios.get(apiEndPoint2)
     .then(results =>{
+      console.log(results)
       console.log('se realizo el llamado a la apiEndPoint2')
     })
     .catch(error =>{
