@@ -67,31 +67,50 @@ router.get('/api/items/:id', function(req, res, nex){
 
 
   var productDetailJson = {
-    categorie: [],
+    categories: [],
   }
 
   axios.get(apiEndPoint1)
     .then(result =>{
-      //el for para traer el detalle del producto y pushearlo a la var productDetailJson
 
+      productDetailJson.categories.push(result.data.category_id)
+
+      var item = {
+        id: result.data.id,
+        title: result.data.title,
+        price:{
+          currency: result.data.currency_id,
+            amount: result.data.price,
+            decimals: 00
+        },
+        picture: result.data.thumbnail,
+        condition: result.data.condition,
+        free_shipping: result.data.shipping.free_shipping, 
+        sold_quantity: result.data.sold_quantity
+      }  
+      
+      productDetailJson.item = item
+
+      res.json(productDetailJson)
+
+      console.log('el llamado a apiEndPoint1 se realizo con Exito')
+     
     })
     .catch(error =>{
       console.log('el llamado a apiEndPoint1 NO se realizo')
     })
-
+    
 
   axios.get(apiEndPoint2)
-    .then(results =>{
-      console.log(results)
+    .then(result =>{
       console.log('se realizo el llamado a la apiEndPoint2')
     })
     .catch(error =>{
       console.log('el llamado a apiEndPoint2 NO se realizo ')
     })
 
-
-
-  res.json(mlaId)
+    
+  
 })
 
 module.exports = router;
